@@ -2,11 +2,17 @@ import express from "express";
 import sequelize from "./config/DataBaseConfig.js";
 import router from "./routes/index.js";
 
+// Importação dos modelos para garantir que as tabelas sejam criadas
+import User from "./model/User.js";
+import Task from "./model/Tesk.js"
+
+
 // Conexão com o banco de dados
 sequelize
     .authenticate()
     .then(() =>{
         console.log("Conexao com o banco de dados feita!");
+        return sequelize.sync({ alter: true }) // Comando para criar as tabelas do banco
     })
     .catch((error) =>{
         console.error("Erro ao conectar com o banco de dados:", error);

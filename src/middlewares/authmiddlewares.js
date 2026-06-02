@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { UserRoleEnum } from './UserRoleEnum.js';
 
 export const autenticarToken = (req, res, next)=>{
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization?.split(' ')[1]; // função para extrair o header e depois dividilos em um array e pegar o token que é a segunda posição do array
 
     if(!token){
         return res.status(401).json({error: "Token de autenticação não fornecido"});
