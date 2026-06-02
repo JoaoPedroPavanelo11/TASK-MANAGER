@@ -1,5 +1,5 @@
-import User from "../models/User.js";
-import Tesk from "../models/Tesk.js";
+import User from "../model/User.js";
+import Tesk from "../model/Tesk.js";
 
 class AdminController{
 
@@ -19,7 +19,7 @@ class AdminController{
     static async visualizarTarefasUsuario(req, res){
         try{
             const tasks = await Tesk.findAll({
-                incluide: {
+                include: {
                     model: User,
                     attributes: ["id", "name", "email"] // Ira mostrar os dados do criador da tarefa
                 }
@@ -37,6 +37,8 @@ class AdminController{
             if(!usuario){
                 return res.status(404).json({message: "Usuario nao encontrado!"});
             }
+            await usuario.destroy();
+            res.status(200).json({message: "Usuario deletado com sucesso!"});
         }catch(error){
             res.status(500).json({error: error.message});
         };

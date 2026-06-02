@@ -1,5 +1,6 @@
 import express from "express";
 import sequelize from "./config/DataBaseConfig.js";
+import router from "./routes/index.js";
 
 // Conexão com o banco de dados
 sequelize
@@ -12,6 +13,8 @@ sequelize
     });
 
 const app = express();
-
 app.use(express.json());
+router(app);
+
+
 export default app;
