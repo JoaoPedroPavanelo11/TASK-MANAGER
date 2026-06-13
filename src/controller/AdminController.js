@@ -1,5 +1,6 @@
 import User from "../model/User.js";
 import Tesk from "../model/Tesk.js";
+import { UserRoleEnum } from "../middlewares/UserRoleEnum.js";
 
 class AdminController{
 
@@ -18,7 +19,12 @@ class AdminController{
     // Visualizar as tarefas de um usuario
     static async visualizarTarefasUsuario(req, res){
         try{
+            const filtroTarefas = req.user.role === UserRoleEnum.ADMIN
+                ? {}
+                : { where: { UserId: req.user.id } };
+
             const tasks = await Tesk.findAll({
+                ...filtroTarefas,
                 include: {
                     model: User,
                     attributes: ["id", "name", "email"] // Ira mostrar os dados do criador da tarefa

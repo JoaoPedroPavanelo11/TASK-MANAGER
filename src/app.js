@@ -6,6 +6,9 @@ import router from "./routes/index.js";
 import User from "./model/User.js";
 import Task from "./model/Tesk.js"
 
+User.hasMany(Task);
+Task.belongsTo(User);
+
 
 // Conexão com o banco de dados
 sequelize
