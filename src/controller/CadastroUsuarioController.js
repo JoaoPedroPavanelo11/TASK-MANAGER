@@ -5,9 +5,24 @@ class CadastroUsuarioController {
     static async cadastrarUsuario(req, res) {
         try {
             const { name, email, password } = req.body;
+            const nomeTratado = typeof name === "string" ? name.trim() : "";
+            const emailTratado = typeof email === "string" ? email.trim().toLowerCase() : "";
+            const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!nomeTratado) {
+                return res.status(400).json({ message: "Nome invalido!" });
+            }
+
+            if (!emailValido.test(emailTratado)) {
+                return res.status(400).json({ message: "Email invalido!" });
+            }
+
+            if (!password) {
+                return res.status(400).json({ message: "Senha invalida!" });
+            }
 
             // Verificação de email
-            const usuarioExistente = await User.findOne({ where: { email } });
+            const usuarioExistente = await User.findOne({ where: { email: emailTratado } });
             if (usuarioExistente) {
                 return res.status(400).json({ message: "Email já cadastrado!" });
             }
@@ -17,23 +32,10 @@ class CadastroUsuarioController {
 
             // Criar Usuario
             const novoUsuario = await User.create({
-                name,
-                email,
+                name: nomeTratado,
+                email: emailTratado,
                 password: senhaHash
             });
-
-            // Case para verificação de nome e email
-            switch (novoUsuario) {
-                case name:
-                    if (novoUsuario.name === undefined) {
-                        return res.status(400).json({ message: "Nome invalido!" });
-                        break;
-                    }
-                case email:
-                   const emailValido =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-                   if(!emailValido.test(novoUsuario.email))
-                    return res.status(400).json({ erro: "Email invalido!"})
-            }
 
 
             return res.status(201).json({

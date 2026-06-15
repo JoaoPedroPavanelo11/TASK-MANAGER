@@ -32,6 +32,64 @@ test("cadastrarUsuario cria usuario sem retornar a senha", async () => {
     assert.equal(res.body.usuario.password, undefined);
 });
 
+test("cadastrarUsuario remove espacos do nome e normaliza email antes de salvar", async () => {
+    const novoUsuario = {
+        id: "user-1",
+        name: "Joao",
+        email: "joao@email.com",
+        role: "USER"
+    };
+
+    mock.method(User, "findOne", async (query) => {
+        assert.deepEqual(query, { where: { email: "joao@email.com" } });
+        return null;
+    });
+    mock.method(User, "create", async (payload) => {
+        assert.equal(payload.name, "Joao");
+        assert.equal(payload.email, "joao@email.com");
+        return novoUsuario;
+    });
+
+    const req = { body: { name: "  Joao  ", email: "  JOAO@EMAIL.COM  ", password: "123456" } };
+    const res = createMockResponse();
+
+    await CadastroUsuarioController.cadastrarUsuario(req, res);
+
+    assert.equal(res.statusCode, 201);
+    assert.equal(res.body.usuario.name, "Joao");
+    assert.equal(res.body.usuario.email, "joao@email.com");
+});
+
+test("cadastrarUsuario retorna 400 quando nome esta vazio", async () => {
+    const findOneMock = mock.method(User, "findOne", async () => null);
+    const createMock = mock.method(User, "create", async () => ({}));
+
+    const req = { body: { name: "   ", email: "joao@email.com", password: "123456" } };
+    const res = createMockResponse();
+
+    await CadastroUsuarioController.cadastrarUsuario(req, res);
+
+    assert.equal(res.statusCode, 400);
+    assert.equal(res.body.message, "Nome invalido!");
+    assert.equal(findOneMock.mock.callCount(), 0);
+    assert.equal(createMock.mock.callCount(), 0);
+});
+
+test("cadastrarUsuario retorna 400 quando email e invalido", async () => {
+    const findOneMock = mock.method(User, "findOne", async () => null);
+    const createMock = mock.method(User, "create", async () => ({}));
+
+    const req = { body: { name: "Joao", email: "email-invalido", password: "123456" } };
+    const res = createMockResponse();
+
+    await CadastroUsuarioController.cadastrarUsuario(req, res);
+
+    assert.equal(res.statusCode, 400);
+    assert.equal(res.body.message, "Email invalido!");
+    assert.equal(findOneMock.mock.callCount(), 0);
+    assert.equal(createMock.mock.callCount(), 0);
+});
+
 test("cadastrarUsuario retorna 400 quando email ja existe", async () => {
     mock.method(User, "findOne", async () => ({ id: "user-1" }));
 
