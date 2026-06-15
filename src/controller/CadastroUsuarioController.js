@@ -22,7 +22,7 @@ class CadastroUsuarioController {
                 password: senhaHash
             });
 
-            // Case para verificação de nome , email e senha
+            // Case para verificação de nome e email
             switch (novoUsuario) {
                 case name:
                     if (novoUsuario.name === undefined) {
