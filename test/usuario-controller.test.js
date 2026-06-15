@@ -120,3 +120,40 @@ test("LoginUsuario retorna token para credenciais validas", async () => {
     assert.equal(res.statusCode, 200);
     assert.equal(typeof res.body.token, "string");
 });
+
+test("cadastrarUsuario retorna 400 quando a senha nao foi enviada", async () => {
+    const req = {
+        body: {
+            name: "Joao",
+            email: "joao@gmail.com"
+        }
+    };
+
+    const res = createMockResponse();
+
+    await CadastroUsuarioController.cadastrarUsuario(req, res);
+
+    assert.equal(res.statusCode, 400);
+    assert.equal(res.body.message, "Senha invalida!");
+});
+
+test("Caso a senha nao é enviada o controller nao chama o banco", async () => {
+    const findOneMock = mock.method(User, "findOne", async () => null); // confere todos usuarios
+    const createMock = mock.method(User, "create", async () => ({})); // confere a criação de usuario
+
+    const req = {
+        body: {
+            name: "Joao",
+            email: "joao@gmail.com"
+        }
+    }
+
+    const res = createMockResponse();
+
+    await CadastroUsuarioController.cadastrarUsuario(req, res);
+
+    assert.equal(res.statusCode, 400);
+    assert.equal(res.body.message, "Senha invalida!");
+    assert.equal(findOneMock.mock.callCount(), 0); // chama o metodo para conferir novamente
+    assert.equal(createMock.mock.callCount(), 0);
+});
