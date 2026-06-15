@@ -6,6 +6,7 @@ class ModificarTesk{
             const { titulo, descricao, status } = req.body;
 
             const task = await Task.findByPk(req.params.id); // Encontrar a tarefa pelo ID
+            
             if(!task){
                 return res.status(404).json({ message: "Tarefa nao encontrada!"});
             }

@@ -2,14 +2,14 @@ import bcrypt from "bcrypt";
 import User from "../model/User.js";
 
 class CadastroUsuarioController {
-    static async cadastrarUsuario(req, res){
-        try{
-            const {name, email, password}= req.body;
+    static async cadastrarUsuario(req, res) {
+        try {
+            const { name, email, password } = req.body;
 
             // Verificação de email
-            const usuarioExistente = await User.findOne({ where: { email}});
-            if(usuarioExistente){
-                return res.status(400).json({ message: "Email já cadastrado!"});
+            const usuarioExistente = await User.findOne({ where: { email } });
+            if (usuarioExistente) {
+                return res.status(400).json({ message: "Email já cadastrado!" });
             }
 
             // Hash da senha
@@ -21,7 +21,23 @@ class CadastroUsuarioController {
                 email,
                 password: senhaHash
             });
-            return res.status(201).json({ message: "Usuario cadastrado com sucesso!",
+
+            // Case para verificação de nome , email e senha
+            switch (novoUsuario) {
+                case name:
+                    if (novoUsuario.name === undefined) {
+                        return res.status(400).json({ message: "Nome invalido!" });
+                        break;
+                    }
+                case email:
+                   const emailValido =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+                   if(!emailValido.test(novoUsuario.email))
+                    return res.status(400).json({ erro: "Email invalido!"})
+            }
+
+
+            return res.status(201).json({
+                message: "Usuario cadastrado com sucesso!",
                 usuario: {
                     id: novoUsuario.id,
                     name: novoUsuario.name,
@@ -30,8 +46,8 @@ class CadastroUsuarioController {
                 }
             });
 
-        }catch(error){
-            res.status(500).json({ message: "Erro ao cadastrar usuario!", error: error.message})
+        } catch (error) {
+            res.status(500).json({ message: "Erro ao cadastrar usuario!", error: error.message })
         };
     };
 };
