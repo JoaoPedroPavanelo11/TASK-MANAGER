@@ -9,7 +9,7 @@ const routes = express.Router();
 routes.post('/', autenticarToken, controladorDeTesk.criarTesk); // cria tarefa
 routes.delete('/:id', autenticarToken, verificaProprietarioTarefa, controladorDeTesk.excluirTesk); // deleta tarefa
 routes.patch('/atualiza/:id', autenticarToken, verificaProprietarioTarefa, ModificarTesk.modificarTesk); // atualiza tarefa
-
+routes.get('/visualizar', autenticarToken, verificaProprietarioTarefa, controladorDeTesk.verTesk); // Visualiza as tarefa 
 
 
 export default routes;
