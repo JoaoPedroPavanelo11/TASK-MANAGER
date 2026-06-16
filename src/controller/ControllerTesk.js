@@ -1,3 +1,4 @@
+import { error } from "node:console";
 import Tesk from "../model/Tesk.js";
 
 class controladorDeTesk {
@@ -61,7 +62,7 @@ class controladorDeTesk {
         };
     }
 
-    // Metodo para ver as tesk
+    // Metodo para ver as tesk por id
     static async verTesk(req, res) {
         try {
             const tarefa = await Tesk.findByPk(req.params.id);
@@ -83,6 +84,23 @@ class controladorDeTesk {
         catch (error) {
             return res.status(500).json({
                 message: "Erro ao listar tarefas!",
+                error: error.message
+            })
+        }
+    }
+
+    //Metodo para o usuario ver todas as suas tarefas
+    static async listarMinhasTesk(req, res){
+        try{
+           const tarefas= await Tesk.findAll({
+            where: { // vai procurar o id do usuario se e o mesmo do criador da tarefa
+                UserId: req.user.id
+            }
+           })
+           return res.status(200).json({tarefas})
+        }catch(error){
+            return res.status(500).json({
+                message: "Erro!",
                 error: error.message
             })
         }
