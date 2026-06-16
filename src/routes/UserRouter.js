@@ -7,4 +7,5 @@ const routes = express.Router();
 routes.post('/register', CadastroUsuarioController.cadastrarUsuario);
 routes.post('/login', LoginUsuarioController.LoginUsuario);
 
+
 export default routes;

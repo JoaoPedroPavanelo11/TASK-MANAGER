@@ -157,3 +157,4 @@ test("Caso a senha nao é enviada o controller nao chama o banco", async () => {
     assert.equal(findOneMock.mock.callCount(), 0); // chama o metodo para conferir novamente
     assert.equal(createMock.mock.callCount(), 0);
 });
+

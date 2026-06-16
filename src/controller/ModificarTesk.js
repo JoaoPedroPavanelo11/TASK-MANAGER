@@ -11,8 +11,16 @@ class ModificarTesk{
                 return res.status(404).json({ message: "Tarefa nao encontrada!"});
             }
 
+            if(task.UserId !== req.user.id){
+                return res.status(403).json({
+                    message: "Voce nao tem permissao para isso!"
+                });
+            }
+
             await task.update({ titulo, descricao, status }) // Atualizar os campos da tarefa
+
             res.status(200).json({ message: "Tarefa modificada com sucesso!", task });
+
         }catch(error){
             res.status(500).json({ message: "Erro ao modificar a tarefa!", error: error.message})
         }

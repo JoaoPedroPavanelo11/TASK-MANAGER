@@ -1,6 +1,7 @@
 import express from "express";
 import adminRouter from "./AdminRouter.js";
 import UserRouter from "./UserRouter.js";
+import InteracaoTarefaUser from "./InteracaoTarefaUser.js";
 
 
 const router = (app) =>{
@@ -9,5 +10,6 @@ const router = (app) =>{
     })
     app.use('/admin', adminRouter);
     app.use('/usuario', UserRouter);
+    app.use('/usuario/tarefas', InteracaoTarefaUser);
 }
 export default router;
