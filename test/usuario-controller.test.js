@@ -5,6 +5,8 @@ import User from "../src/model/User.js";
 import CadastroUsuarioController from "../src/controller/CadastroUsuarioController.js";
 import LoginUsuarioController from "../src/controller/LoginUsuarioController.js";
 import { createMockResponse } from "./helpers.js";
+import Task from "../src/model/Tesk.js";
+import { verificaProprietarioTarefa } from "../src/middlewares/authmiddlewares.js";
 
 test("cadastrarUsuario cria usuario sem retornar a senha", async () => {
     const novoUsuario = {
@@ -158,3 +160,28 @@ test("Caso a senha nao é enviada o controller nao chama o banco", async () => {
     assert.equal(createMock.mock.callCount(), 0);
 });
 
+test("Quando a tarefa nao existe, deve retornar 404", async ()=>{
+    mock.method(Task, "findByPk", async()=> null);
+
+    const req ={
+        params: {
+            id: "task-1"
+        },
+        user: {
+            id: "user-1"
+        }
+    }
+
+    const res = createMockResponse();
+
+    let nextCalled = false;
+    const next = () => {
+        nextCalled = true;
+    }
+
+    await verificaProprietarioTarefa(req, res, next);
+
+    assert.equal(res.statusCode, 404);
+    assert.equal(res.body.message, "Tarefa nao encontrada!");
+    assert.equal(nextCalled, false);
+}) 

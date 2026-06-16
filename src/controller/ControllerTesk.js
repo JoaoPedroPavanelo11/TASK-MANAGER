@@ -12,7 +12,7 @@ class controladorDeTesk {
             }
             if (!descricao) {
                 return res.status(400).json({
-                    message: "Descricao invalido!"
+                    message: "Descriçao invalido!"
                 });
             }
             // Metodo que cria a task
@@ -47,7 +47,7 @@ class controladorDeTesk {
                     message: "Voce nao tem permissao para excluir essa tarefa!"
                 });
             }
-            
+
             await tesk.destroy();
 
             return res.status(200).json({
