@@ -10,6 +10,6 @@ routes.post('/', autenticarToken, controladorDeTesk.criarTesk); // cria tarefa
 routes.delete('/:id', autenticarToken, verificaProprietarioTarefa, controladorDeTesk.excluirTesk); // deleta tarefa
 routes.patch('/atualiza/:id', autenticarToken, verificaProprietarioTarefa, ModificarTesk.modificarTesk); // atualiza tarefa
 routes.get('/visualizar/:id', autenticarToken, verificaProprietarioTarefa, controladorDeTesk.verTesk); // Visualiza as tarefa pelo id
-
+routes.get('/todastarefa', autenticarToken, controladorDeTesk.listarMinhasTesk);
 
 export default routes;
