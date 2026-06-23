@@ -1,4 +1,11 @@
 const formLogin = document.getElementById("form-login");
+const mensagemLogin = document.getElementById("mensagem-login");
+
+function mostrarMensagemLogin(texto, tipo){
+    mensagemLogin.textContent = texto;
+    mensagemLogin.className = `alert alert-${tipo}`;
+}
+
 
 formLogin.addEventListener("submit", async function(event)  {
     event.preventDefault();
@@ -9,3 +16,4 @@ formLogin.addEventListener("submit", async function(event)  {
     const resultado = await loginUsuario(email, password);
     console.log(resultado);
 });
+
