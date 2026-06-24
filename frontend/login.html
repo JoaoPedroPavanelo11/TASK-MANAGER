@@ -20,23 +20,26 @@
                         <form id="form-login">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-label" id="email" required placeholder="name@gmail.com">
+                                <input type="email" class="form-control" id="email" required placeholder="name@gmail.com">
                             </div>
 
                             <div class="mb-3">
-                                <label for="passowrd" class="form-label">Senha</label>
-                                <input type="password" class="form-label" id="passowrd" required>
+                                <label for="password" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="password" required>
                             </div>
 
                             <div class="d-grid gap-2 col-6 mx-auto">
-                                <button type="submit" class="btn- btn-primary" type="button">Entrar</button>
+                                <button type="submit" class="btn btn-primary">Entrar</button>
                             </div>
+
+                            <div class="alert d-none" id="mensagem-login" role="alert"></div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <script src="./js/api.js"></script>
     <script src="./js/login.js"></script>
 </body>
 
