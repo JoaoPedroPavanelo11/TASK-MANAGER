@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+</head>
+<body>
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="h3 mb-3">Minhas Tarefas</h1>
+                        <p class="text-secondary">Adicione, visualize e organize suas tarefa</p>
+
+                        <form action="form-tarefa">
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Titulo</label>
+                                <input type="text" class="form-control" id="titulo" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="descricao" rows="3" required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Status</label>
+                                <select name="form-select" id="status">
+                                    <option value="pendente">Pendente</option>
+                                    <option value="em andamento">Em andamento</option>
+                                    <option value="concluida">Concluida</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Adicionar Tarefa</button>
+                        </form>
+
+                        <hr class="my-4">
+
+                        <div id="lista-tarefas">
+                            <h2 class="h5">Suas tarefas</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/tarefas.js"></script>
+</body>
+</html>
