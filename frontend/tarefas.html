@@ -1,46 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Tarefas - Task Manager</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .task-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .task-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .task-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .task-status {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .status-pendente { background: #fef3c7; color: #92400e; }
+    .status-andamento { background: #dbeafe; color: #1e40af; }
+    .status-concluida { background: #d1fae5; color: #065f46; }
+    
+    .task-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-    <main class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h1 class="h3 mb-3">Minhas Tarefas</h1>
-                        <p class="text-secondary">Adicione, visualize e organize suas tarefa</p>
-
-                        <form action="form-tarefa">
-                            <div class="mb-3">
-                                <label for="titulo" class="form-label">Titulo</label>
-                                <input type="text" class="form-control" id="titulo" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="titulo" class="form-label">Descrição</label>
-                                <textarea class="form-control" id="descricao" rows="3" required></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="titulo" class="form-label">Status</label>
-                                <select name="form-select" id="status">
-                                    <option value="pendente">Pendente</option>
-                                    <option value="em andamento">Em andamento</option>
-                                    <option value="concluida">Concluida</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Adicionar Tarefa</button>
-                        </form>
-
-                        <hr class="my-4">
-
-                        <div id="lista-tarefas">
-                            <h2 class="h5">Suas tarefas</h2>
+  <div class="container">
+    <div class="card">
+      <div class="task-header">
+        <div>
+          <h1>Minhas Tarefas</h1>
+          <p style="color: var(--text-light);">Adicione, visualize e organize suas tarefas</p>
+        </div>
+        <button id="btn-sair" class="btn" style="background: var(--danger); color: white;">Sair</button>
+      </div>
+      
+      <div class="task-layout">
+        <div>
+          <h2 class="mb-2">Adicionar Tarefa</h2>
+          <form id="form-tarefa">
+            <div class="form-group">
+              <label for="titulo">Título</label>
+              <input type="text" id="titulo" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" class="form-control" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" class="form-control">
+                <option value="pendente">Pendente</option>
+                <option value="andamento">Em andamento</option>
+                <option value="concluida">Concluída</option>
+              </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary mt-2">Adicionar Tarefa</button>
+          </form>
+        </div>
+        
+        <div>
+          <h2 class="mb-2">Lista de Tarefas</h2>
+          <div id="lista-tarefas"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="./js/api.js"></script>
+  <script src="./js/tarefas.js"></script>
+</body>
+</html>
                         </div>
                     </div>
                 </div>
