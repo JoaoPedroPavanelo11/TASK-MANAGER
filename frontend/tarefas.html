@@ -3,113 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minhas Tarefas - Task Manager</title>
-  <link rel="stylesheet" href="./css/style.css">
-  <style>
-    .task-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    
-    .task-layout {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2rem;
-    }
-    
-    @media (max-width: 768px) {
-      .task-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .task-card {
-      background: white;
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .task-status {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-    
-    .status-pendente { background: #fef3c7; color: #92400e; }
-    .status-andamento { background: #dbeafe; color: #1e40af; }
-    .status-concluida { background: #d1fae5; color: #065f46; }
-    
-    .task-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-  </style>
+  <title>Minhas Tarefas — Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/tarefas.css">
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="task-header">
+  <div class="tasks-page">
+    <div class="container">
+      <header class="tasks-header">
         <div>
           <h1>Minhas Tarefas</h1>
-          <p style="color: var(--text-light);">Adicione, visualize e organize suas tarefas</p>
+          <p>Adicione, edite e acompanhe suas tarefas.</p>
         </div>
-        <button id="btn-sair" class="btn" style="background: var(--danger); color: white;">Sair</button>
-      </div>
-      
-      <div class="task-layout">
-        <div>
-          <h2 class="mb-2">Adicionar Tarefa</h2>
+        <button id="btn-sair" class="btn btn-danger btn-sm">Sair</button>
+      </header>
+
+      <div class="tasks-layout">
+        <aside class="panel">
+          <h2 class="panel-title" id="form-titulo">Nova Tarefa</h2>
           <form id="form-tarefa">
+            <input type="hidden" id="tarefa-id" value="">
+
             <div class="form-group">
               <label for="titulo">Título</label>
-              <input type="text" id="titulo" class="form-control" required>
+              <input type="text" id="titulo" class="form-control" required placeholder="Ex: Estudar Node.js">
             </div>
-            
+
             <div class="form-group">
               <label for="descricao">Descrição</label>
-              <textarea id="descricao" class="form-control" rows="3" required></textarea>
+              <textarea id="descricao" class="form-control" rows="3" required placeholder="Descreva a tarefa..."></textarea>
             </div>
-            
+
             <div class="form-group">
               <label for="status">Status</label>
               <select id="status" class="form-control">
-                <option value="pendente">Pendente</option>
-                <option value="andamento">Em andamento</option>
-                <option value="concluida">Concluída</option>
+                <option value="PENDENTE">Pendente</option>
+                <option value="EM_ANDAMENTO">Em andamento</option>
+                <option value="CONCLUIDA">Concluída</option>
               </select>
             </div>
-            
-            <button type="submit" class="btn btn-primary mt-2">Adicionar Tarefa</button>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btn-salvar">Adicionar</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-cancelar" style="display: none;">Cancelar</button>
+            </div>
           </form>
-        </div>
-        
-        <div>
-          <h2 class="mb-2">Lista de Tarefas</h2>
-          <div id="lista-tarefas"></div>
-        </div>
+        </aside>
+
+        <section class="panel">
+          <h2 class="panel-title">Suas tarefas</h2>
+          <p class="task-count" id="task-count"></p>
+          <div id="lista-tarefas" class="task-list"></div>
+        </section>
       </div>
     </div>
   </div>
-  
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/ui.js"></script>
   <script src="./js/api.js"></script>
   <script src="./js/tarefas.js"></script>
-</body>
-</html>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="./js/api.js"></script>
-    <script src="./js/tarefas.js"></script>
 </body>
 </html>

@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager-Login</title>
-    <link rel="stylesheet" href="./css/login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/auth.css">
 </head>
-
 <body>
-    <main>
-        <div class="auth-card">
-            <div class="card-body">
-                <h1>Login</h1>
-                <p>Entre na sua conta para gerenciar suas tarefas!</p>
+  <div class="auth-page">
+    <div class="auth-card">
+      <a href="./index.html" class="auth-back">← Voltar ao início</a>
 
-                <form id="form-login">
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required placeholder="name@gmail.com">
-                    </div>
+      <div class="auth-header">
+        <h1>Bem-vindo de volta</h1>
+        <p>Entre na sua conta para gerenciar suas tarefas.</p>
+      </div>
 
-                    <div class="input-group">
-                        <label for="password">Senha</label>
-                        <input type="password" id="password" required>
-                    </div>
-
-                    <div class="auth-actions">
-                        <button type="submit" class="btn-primary">Entrar</button>
-                    </div>
-
-                    <div class="message d-none" id="mensagem-login"></div>
-                </form>
-            </div>
+      <form id="form-login" class="auth-form">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" class="form-control" required placeholder="seu@email.com">
         </div>
-    </main>
-    <script src="./js/api.js"></script>
-    <script src="./js/login.js"></script>
-</body>
 
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" class="form-control" required placeholder="••••••••">
+        </div>
+
+        <div id="mensagem-login" class="alert"></div>
+
+        <div class="auth-actions">
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        Não tem conta? <a href="./cadastro.html">Cadastre-se</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/api.js"></script>
+  <script src="./js/login.js"></script>
+</body>
 </html>

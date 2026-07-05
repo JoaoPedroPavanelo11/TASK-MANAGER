@@ -3,43 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Manager</title>
-  <link rel="stylesheet" href="./css/style.css">
-  <style>
-    .hero {
-      text-align: center;
-      padding: 6rem 0 4rem;
-    }
-    
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .hero p {
-      font-size: 1.25rem;
-      color: var(--text-light);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-    
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-  </style>
+  <title>Task Manager — Organize suas tarefas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-  <div class="container">
-    <div class="hero">
-      <h1>Bem-vindo ao Task Manager</h1>
-      <p>Organize suas tarefas de forma simples e eficiente</p>
-      <div class="cta-buttons">
-        <a href="./login.html" class="btn btn-primary">Entrar</a>
-        <a href="./cadastro.html" class="btn" style="background: var(--secondary); color: white;">Cadastrar</a>
+  <div class="landing">
+    <header class="landing-header">
+      <div class="container">
+        <a href="./index.html" class="logo">
+          <span class="logo-icon">✓</span>
+          Task Manager
+        </a>
+        <nav class="header-nav">
+          <a href="./login.html" class="btn btn-secondary">Entrar</a>
+          <a href="./cadastro.html" class="btn btn-primary">Criar conta</a>
+        </nav>
       </div>
-    </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="hero-badge">Simples · Organizado · Eficiente</span>
+          <h1>Organize suas tarefas com clareza</h1>
+          <p>
+            Gerencie pendências, acompanhe o progresso e mantenha tudo em um só lugar.
+            Sem complicação.
+          </p>
+          <div class="hero-actions">
+            <a href="./cadastro.html" class="btn btn-primary">Começar gratuitamente</a>
+            <a href="./login.html" class="btn btn-secondary">Já tenho conta</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <div class="features-header">
+            <h2>Tudo que você precisa</h2>
+            <p>Ferramentas essenciais para manter sua produtividade no dia a dia.</p>
+          </div>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">📋</div>
+              <h3>Crie tarefas facilmente</h3>
+              <p>Adicione título, descrição e status em segundos. Interface limpa e direta.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📊</div>
+              <h3>Acompanhe o progresso</h3>
+              <p>Visualize pendências, tarefas em andamento e concluídas de forma clara.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">🔒</div>
+              <h3>Conta segura</h3>
+              <p>Suas tarefas ficam vinculadas à sua conta. Apenas você tem acesso.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Pronto para se organizar?</h2>
+            <p>Crie sua conta em menos de um minuto e comece a gerenciar suas tarefas hoje.</p>
+            <a href="./cadastro.html" class="btn btn-primary">Criar minha conta</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <div class="container">
+        <p>Task Manager — Projeto de estudo</p>
+      </div>
+    </footer>
   </div>
 </body>
 </html>

@@ -1,29 +1,30 @@
 const formCadastro = document.getElementById("form-cadastro");
 const mensagemCadastro = document.getElementById("mensagem-cadastro");
 
-function mostrarMensagemCadastro(texto, tipo) {
-    mensagemCadastro.textContent = texto;
-    mensagemCadastro.className = `alert alert-${tipo}`;
-}
+redirectIfAuthenticated();
 
-formCadastro.addEventListener("submit", async function(event) {
+formCadastro.addEventListener("submit", async function (event) {
     event.preventDefault();
+    esconderMensagem(mensagemCadastro);
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const resultado = await criarUsuario(name, email, password);
+    try {
+        const resultado = await criarUsuario(name, email, password);
 
-    if (resultado.usuario) {
-        mostrarMensagemCadastro(resultado.message, "success");
+        if (resultado.usuario) {
+            mostrarMensagem(mensagemCadastro, resultado.message || "Conta criada com sucesso!", "success");
 
-        setTimeout(function() {
-            window.location.href = "./login.html";
-        }, 1500);
+            setTimeout(function () {
+                window.location.href = "./login.html";
+            }, 1200);
+            return;
+        }
 
-        return;
+        mostrarMensagem(mensagemCadastro, resultado.message || "Erro ao cadastrar.", "danger");
+    } catch (error) {
+        mostrarMensagem(mensagemCadastro, "Erro ao conectar com o servidor.", "danger");
     }
-
-    mostrarMensagemCadastro(resultado.message || "Erro ao cadastrar usuario.", "danger");
 });
